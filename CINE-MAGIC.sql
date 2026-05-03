@@ -68,3 +68,46 @@ INSERT INTO bookings (showtime_id, customer_name, phone) VALUES
 (4, N'Vũ Thị H', '0978901234'),
 (5, N'Bùi Văn I', '0989012345'),
 (5, N'Đặng Thị K', '0990123456');
+
+UPDATE rooms
+SET status = 'maintenance'
+WHERE id = 1;
+
+UPDATE showtimes
+SET room_id = 2
+WHERE room_id = 1;
+
+
+DELETE FROM bookings
+WHERE phone = '0987654321';
+
+DELETE FROM bookings
+WHERE showtime_id IN (SELECT id FROM showtimes WHERE movie_id = 3);
+
+DELETE FROM showtimes
+WHERE movie_id = 3;
+
+
+DELETE FROM movies
+WHERE id = 3;
+
+
+SELECT id, title, duration_minutes
+FROM movies
+WHERE duration_minutes BETWEEN 90 AND 120;
+
+SELECT id, customer_name, phone, booking_date
+FROM bookings
+WHERE showtime_id = 2
+ORDER BY booking_date DESC;
+
+SELECT id, title, duration_minutes, age_restriction
+FROM movies
+WHERE age_restriction = 18 OR duration_minutes > 150;
+
+SELECT id, movie_id, room_id, show_time, ticket_price
+FROM showtimes
+WHERE ticket_price > 100000
+  AND MONTH(show_time) = MONTH(CURRENT_DATE)
+  AND YEAR(show_time) = YEAR(CURRENT_DATE);
+
